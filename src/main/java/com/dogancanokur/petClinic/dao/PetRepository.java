@@ -1,11 +1,9 @@
 package com.dogancanokur.petClinic.dao;
 
 import com.dogancanokur.petClinic.model.Pet;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface PetRepository {
 
     List<Pet> findAll();
