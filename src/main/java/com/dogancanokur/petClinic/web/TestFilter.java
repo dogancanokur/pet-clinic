@@ -10,9 +10,9 @@ public class TestFilter implements Filter {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        response.getWriter().write("before...");
+//        response.getWriter().write("before...");
         chain.doFilter(request, response);
-        response.getWriter().write("...after");
+//        response.getWriter().write("...after");
     }
 
     public void init(FilterConfig config) throws ServletException {
