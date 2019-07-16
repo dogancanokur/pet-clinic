@@ -39,8 +39,9 @@ public class PetClinicServiceImpl implements PetClinicService {
     }
 
     @Override
-    public void createOwner(Owner owner) {
+    public long createOwner(Owner owner) {
         ownerRepository.create(owner);
+        return owner.getId();
     }
 
     @Override
