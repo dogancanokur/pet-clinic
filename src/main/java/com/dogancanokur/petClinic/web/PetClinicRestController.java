@@ -29,7 +29,7 @@ public class PetClinicRestController {
         }
     }
 
-    @RequestMapping(value = "/owners", method = RequestMethod.GET)
+    @RequestMapping(value = "/owner", method = RequestMethod.GET)
     public ResponseEntity<List<Owner>> getOwner(@RequestParam("ln") String lastname) {
         try {
             List<Owner> owners = petClinicService.findOwners(lastname);
@@ -104,4 +104,6 @@ public class PetClinicRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    // postman test api => https://www.getpostman.com/collections/f5e79d51cc467db87cae
 }
