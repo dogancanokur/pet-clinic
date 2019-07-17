@@ -1,10 +1,10 @@
 package com.dogancanokur.petClinic.web;
 
+import com.dogancanokur.petClinic.exception.InternalServerException;
 import com.dogancanokur.petClinic.exception.OwnerNotFoundException;
 import com.dogancanokur.petClinic.model.Owner;
 import com.dogancanokur.petClinic.services.PetClinicService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,17 +25,22 @@ public class PetClinicRestController {
             List<Owner> owners = petClinicService.findOwners();
             return ResponseEntity.ok(owners);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+            throw new InternalServerException(e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @RequestMapping(value = "/owner", method = RequestMethod.GET)
     public ResponseEntity<List<Owner>> getOwner(@RequestParam("ln") String lastname) {
         try {
+
             List<Owner> owners = petClinicService.findOwners(lastname);
             return ResponseEntity.ok(owners);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+            throw new InternalServerException(e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -47,10 +52,12 @@ public class PetClinicRestController {
             return ResponseEntity.ok(owner);
         } catch (OwnerNotFoundException e) {
 
-            return ResponseEntity.notFound().build();
+            throw new OwnerNotFoundException(e);
+//            return ResponseEntity.notFound().build();
         } catch (Exception e) {
 
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new InternalServerException(e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -64,7 +71,9 @@ public class PetClinicRestController {
                     .buildAndExpand(id).toUri();
             return ResponseEntity.created(location).build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+            throw new InternalServerException(e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -86,7 +95,8 @@ public class PetClinicRestController {
 //            return ResponseEntity.notFound().build();
         } catch (Exception e) {
 
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new InternalServerException(e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -98,10 +108,12 @@ public class PetClinicRestController {
             return ResponseEntity.ok().build();
         } catch (OwnerNotFoundException e) {
 
-            return ResponseEntity.notFound().build();
+            throw new OwnerNotFoundException(e);
+//            return ResponseEntity.notFound().build();
         } catch (Exception e) {
 
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new InternalServerException(e);
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

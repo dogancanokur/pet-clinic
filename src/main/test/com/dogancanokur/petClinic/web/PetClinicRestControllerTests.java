@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -42,7 +42,7 @@ public class PetClinicRestControllerTests {
 
         List<Map<String, String>> owners = responseEntity.getBody();
         List<String> firstNames = owners.stream().map(e -> e.get("firstName")).collect(Collectors.toList());
-        MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Doğancan"));
+        MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Doğancan", "Kübra"));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class PetClinicRestControllerTests {
         List<Map<String, String>> owners = responseEntity.getBody();
         List<String> firstNames = owners.stream().map(e -> e.get("firstName")).collect(Collectors.toList());
 
-        MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Doğancan", "Kübra", "Murat", "Gürcan", "Mban"));
+        MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Doğancan", "Kübra", "Murat", "Gürcan"));
     }
 
     @Test
@@ -91,9 +91,10 @@ public class PetClinicRestControllerTests {
     public void testDeleteOwner() {
         restTemplate.delete("http://localhost:8080/rest/owner/4");
         try {
-            restTemplate.getForEntity("http://localhost:8080/rest/owner/3", Owner.class);
+            restTemplate.getForEntity("http://localhost:8080/rest/owner/4", Owner.class);
             Assert.fail("should have not returned owner");
-        } catch (RestClientException e) {
+//        } catch (RestClientException e) {
+        } catch (HttpClientErrorException e) {
             System.out.println("Rest Client Exception found");
         }
     }
