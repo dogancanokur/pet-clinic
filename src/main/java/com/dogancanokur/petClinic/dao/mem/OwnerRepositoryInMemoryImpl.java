@@ -57,7 +57,11 @@ public class OwnerRepositoryInMemoryImpl implements OwnerRepository {
 
     @Override
     public void create(Owner owner) {
-        owner.setId(new Date().getTime());
+        if (owner.getId() == null) {
+
+            owner.setId(new Date().getTime());
+        }
+
         ownerMap.put(owner.getId(), owner);
     }
 

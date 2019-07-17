@@ -4,9 +4,11 @@ import com.dogancanokur.petClinic.model.Owner;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -40,7 +42,7 @@ public class PetClinicRestControllerTests {
 
         List<Map<String, String>> owners = responseEntity.getBody();
         List<String> firstNames = owners.stream().map(e -> e.get("firstName")).collect(Collectors.toList());
-        MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Doğancan", "Kübra"));
+        MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Doğancan"));
     }
 
     @Test
@@ -53,7 +55,7 @@ public class PetClinicRestControllerTests {
         List<Map<String, String>> owners = responseEntity.getBody();
         List<String> firstNames = owners.stream().map(e -> e.get("firstName")).collect(Collectors.toList());
 
-        MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Doğancan", "Kübra", "Murat", "Gürcan"));
+        MatcherAssert.assertThat(firstNames, Matchers.containsInAnyOrder("Doğancan", "Kübra", "Murat", "Gürcan", "Mban"));
     }
 
     @Test
@@ -83,5 +85,16 @@ public class PetClinicRestControllerTests {
 
         MatcherAssert.assertThat(owner.getFirstName(), Matchers.equalTo("Kübra"));
         MatcherAssert.assertThat(owner.getLastName(), Matchers.equalTo("Aygun"));
+    }
+
+    @Test
+    public void testDeleteOwner() {
+        restTemplate.delete("http://localhost:8080/rest/owner/4");
+        try {
+            restTemplate.getForEntity("http://localhost:8080/rest/owner/3", Owner.class);
+            Assert.fail("should have not returned owner");
+        } catch (RestClientException e) {
+            System.out.println("Rest Client Exception found");
+        }
     }
 }

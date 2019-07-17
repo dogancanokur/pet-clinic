@@ -40,17 +40,33 @@ public class PetClinicServiceImpl implements PetClinicService {
 
     @Override
     public long createOwner(Owner owner) {
+
         ownerRepository.create(owner);
         return owner.getId();
     }
 
     @Override
     public void updateOwner(Owner owner) {
-        ownerRepository.update(owner);
+        Owner foundOwner = ownerRepository.findById(owner.getId());
+        if (foundOwner == null) {
+
+            throw new OwnerNotFoundException("Owner not found");
+        } else {
+
+            ownerRepository.update(owner);
+        }
     }
 
     @Override
     public void deleteOwner(Long id) {
-        ownerRepository.delete(id);
+
+        Owner owner = findOwner(id);
+        if (owner == null) {
+
+            throw new OwnerNotFoundException("Owner Not Found");
+        } else {
+
+            ownerRepository.delete(id);
+        }
     }
 }
