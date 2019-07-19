@@ -8,7 +8,7 @@ CREATE TABLE public.t_pet
 (
     id         bigint not null,
     name       varchar(255),
-    birth_data date,
+    birth_date date,
     owner_id   bigint
 );
 
