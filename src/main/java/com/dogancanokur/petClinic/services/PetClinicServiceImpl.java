@@ -12,6 +12,8 @@ import java.util.List;
 public class PetClinicServiceImpl implements PetClinicService {
 
     private final OwnerRepository ownerRepository;
+    // burada hangi ismin camelCase hali var ise autowired için o isim tercih edilecektir.
+    // bkz: OwnerRepositoryJdbcImpl
 
     @Autowired
     public PetClinicServiceImpl(OwnerRepository ownerRepository) {
