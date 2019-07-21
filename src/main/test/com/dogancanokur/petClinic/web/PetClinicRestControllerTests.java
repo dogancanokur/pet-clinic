@@ -89,9 +89,9 @@ public class PetClinicRestControllerTests {
 
     @Test
     public void testDeleteOwner() {
-        restTemplate.delete("http://localhost:8080/rest/owner/4");
+        restTemplate.delete("http://localhost:8080/rest/owner/1");
         try {
-            restTemplate.getForEntity("http://localhost:8080/rest/owner/4", Owner.class);
+            restTemplate.getForEntity("http://localhost:8080/rest/owner/1", Owner.class);
             Assert.fail("should have not returned owner");
 //        } catch (RestClientException e) {
         } catch (HttpClientErrorException e) {
