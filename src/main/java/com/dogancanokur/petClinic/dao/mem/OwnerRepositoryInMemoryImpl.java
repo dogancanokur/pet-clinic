@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Repository
+//@Repository
 public class OwnerRepositoryInMemoryImpl implements OwnerRepository {
     private Map<Long, Owner> ownerMap = new HashMap<>();
 

@@ -1,13 +1,29 @@
 package com.dogancanokur.petClinic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Owner {
+@Entity
+@Table(name = "t_owner")
+public class Owner implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "petClinicSeqGen")
+    @SequenceGenerator(name = "petClinicSeqGen", sequenceName = "petClinic_sequence")
     private Long id;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @OneToMany(mappedBy = "owner")
+    @JsonIgnore
     private Set<Pet> pets = new HashSet<>();
 
     public Owner() {

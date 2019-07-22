@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+//@Repository
 public class PetRepositoryJdbcImpl implements PetRepository {
 
     @Autowired
@@ -27,7 +27,7 @@ public class PetRepositoryJdbcImpl implements PetRepository {
     }
 
     @Override
-    public Pet findByName(String name) {
+    public List<Pet> findByName(String name) {
         // TODO
         return null;
     }

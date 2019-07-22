@@ -10,7 +10,7 @@ public interface PetRepository {
 
     Pet findById(Long id);
 
-    Pet findByName(String name);
+    List<Pet> findByName(String name);
 
     List<Pet> findByOwnerId(Long ownerId);
 

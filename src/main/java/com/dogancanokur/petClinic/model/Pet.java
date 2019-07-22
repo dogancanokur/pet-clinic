@@ -1,12 +1,29 @@
 package com.dogancanokur.petClinic.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Pet {
+@Entity
+@Table(name = "t_pet")
+public class Pet implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "petClinicSeqGen")
+    @SequenceGenerator(name = "petClinicSeqGen", sequenceName = "petClinic_sequence")
     private Long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "birth_date")
+//    @Temporal(TemporalType.DATE)
     private Date birthDate;
+
+    @ManyToOne//(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
     private Owner owner;
 
     public Pet() {
