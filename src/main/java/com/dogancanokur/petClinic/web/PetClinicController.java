@@ -18,6 +18,14 @@ public class PetClinicController {
         this.petClinicService = petClinicService;
     }
 
+
+    @RequestMapping(value = {"/", "index.html"})
+    public ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/owners", method = RequestMethod.GET)
     public ModelAndView getOwners() {
 

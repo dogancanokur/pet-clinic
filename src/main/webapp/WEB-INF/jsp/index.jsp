@@ -9,5 +9,11 @@
 </head>
 <body>
 <h1>INDEX PAGE</h1>
+<form action="logout" method="post">
+    <input type="submit" value="logout"/>
+    <input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
+
+</form>
+
 </body>
 </html>
