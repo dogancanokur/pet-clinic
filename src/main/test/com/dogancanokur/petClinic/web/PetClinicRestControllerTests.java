@@ -8,10 +8,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,15 +24,19 @@ public class PetClinicRestControllerTests {
     @Before
     public void setup() {
         restTemplate = new RestTemplate();
+
+        BasicAuthenticationInterceptor basicAuthenticationInterceptor
+                = new BasicAuthenticationInterceptor("user", "admin");
+        restTemplate.setInterceptors(Arrays.asList(basicAuthenticationInterceptor));
     }
 
     @Test
     public void testGetOwnerById() {
         ResponseEntity<Owner> responseEntity =
-                restTemplate.getForEntity("http://localhost:8080/rest/owner/1", Owner.class);
+                restTemplate.getForEntity("http://localhost:8080/rest/owner/2", Owner.class);
 
         MatcherAssert.assertThat(responseEntity.getStatusCodeValue(), CoreMatchers.equalTo(200));
-        MatcherAssert.assertThat(responseEntity.getBody().getFirstName(), CoreMatchers.equalTo("Doğancan"));
+        MatcherAssert.assertThat(responseEntity.getBody().getFirstName(), CoreMatchers.equalTo("Beşir"));
     }
 
     @Test
@@ -76,9 +82,9 @@ public class PetClinicRestControllerTests {
     public void testUpdateOwner() {
         Owner owner = restTemplate.getForObject("http://localhost:8080/rest/owner/2", Owner.class);
 
-        MatcherAssert.assertThat(owner.getFirstName(), Matchers.equalTo("Kübra"));
+        MatcherAssert.assertThat(owner.getFirstName(), Matchers.equalTo("Beşir"));
 
-        owner.setLastName("Aygun");
+        owner.setLastName("Dal");
         restTemplate.put("http://localhost:8080/rest/owner/2", owner);
 
         owner = restTemplate.getForObject("http://localhost:8080/rest/owner/2", Owner.class);
