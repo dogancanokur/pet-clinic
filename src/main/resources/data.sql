@@ -47,11 +47,11 @@ INSERT INTO t_pet (id, name, birth_date, owner_id)
 VALUES (13, 'Sarı', '2002-06-08', 9);
 
 insert into users
-values ('user1', '{noop}secret', true);
+values ('user1', '{bcrypt}$2a$10$cxxDYeolqrlJ0ph2r6Z4suiSrpfUkhRSrk9weX7xvliXy/MiCmeOi', true);
 insert into users
-values ('user2', '{noop}secret', true);
+values ('user2', '{bcrypt}$2a$10$64Usu9KmP/xsN4eg40WIJ.frl5ewPkrr9hGTOvd05LvarpkgRM3y2', true);
 insert into users
-values ('user3', '{noop}secret', true);
+values ('user3', '{bcrypt}$2a$10$8kuoTl5URWJhajq.MV/n7eVQk4okCglzOQc4L25wVQrVmsjMIHC3W', true);
 
 insert into authorities
 values ('user1', 'ROLE_USER');
