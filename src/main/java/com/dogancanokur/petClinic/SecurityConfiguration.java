@@ -21,9 +21,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers(
-                "/**/favicon.ico", "/css/**", "/js/**", "/images/**", "/webjars/**", "/login.html"
-        ).permitAll();
+        http.authorizeRequests()
+                // herkes erişsin
+                .antMatchers(
+                        "/**/favicon.ico", "/css/**", "/js/**", "/images/**", "/webjars/**", "/login.html"
+                )
+                .permitAll();
+
+        // editör rolü erişsin
+        http.authorizeRequests()
+                .antMatchers("/rest/**")
+                .access("hasRole('EDITOR')");
+
+        http.authorizeRequests()
+                // admin rolü erişsin
+                .antMatchers("/actuator/**")
+                .access("hasRole('ADMIN')");
 
         http.authorizeRequests().anyRequest().authenticated();
 
