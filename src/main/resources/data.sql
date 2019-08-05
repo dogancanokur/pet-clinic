@@ -45,3 +45,23 @@ INSERT INTO t_pet (id, name, birth_date, owner_id)
 VALUES (12, 'Tarçın', '2000-06-24', 8);
 INSERT INTO t_pet (id, name, birth_date, owner_id)
 VALUES (13, 'Sarı', '2002-06-08', 9);
+
+insert into users
+values ('user1', '{noop}secret', true);
+insert into users
+values ('user2', '{noop}secret', true);
+insert into users
+values ('user3', '{noop}secret', true);
+
+insert into authorities
+values ('user1', 'ROLE_USER');
+insert into authorities
+values ('user2', 'ROLE_USER');
+insert into authorities
+values ('user2', 'ROLE_EDITOR');
+insert into authorities
+values ('user3', 'ROLE_USER');
+insert into authorities
+values ('user3', 'ROLE_EDITOR');
+insert into authorities
+values ('user3', 'ROLE_ADMIN');
