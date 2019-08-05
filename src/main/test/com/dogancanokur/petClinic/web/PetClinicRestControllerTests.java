@@ -7,6 +7,7 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.HttpClientErrorException;
@@ -24,10 +25,11 @@ public class PetClinicRestControllerTests {
     @Before
     public void setup() {
         restTemplate = new RestTemplate();
-
-        BasicAuthenticationInterceptor basicAuthenticationInterceptor
-                = new BasicAuthenticationInterceptor("user", "admin");
+        BasicAuthenticationInterceptor basicAuthenticationInterceptor = new BasicAuthenticationInterceptor("user2", "secret");
         restTemplate.setInterceptors(Arrays.asList(basicAuthenticationInterceptor));
+//        BasicAuthenticationInterceptor basicAuthenticationInterceptor
+//                = new BasicAuthenticationInterceptor("user", "admin");
+//        restTemplate.setInterceptors(Arrays.asList(basicAuthenticationInterceptor));
     }
 
     @Test
@@ -95,13 +97,16 @@ public class PetClinicRestControllerTests {
 
     @Test
     public void testDeleteOwner() {
-        restTemplate.delete("http://localhost:8080/rest/owner/1");
+//        restTemplate.delete("http://localhost:8080/rest/owner/1");
+        ResponseEntity<Void> responseEntity = restTemplate.exchange("http://localhost:8080/rest/owner/1", HttpMethod.DELETE, null, Void.class);
+
         try {
             restTemplate.getForEntity("http://localhost:8080/rest/owner/1", Owner.class);
             Assert.fail("should have not returned owner");
 //        } catch (RestClientException e) {
         } catch (HttpClientErrorException e) {
-            System.out.println("Rest Client Exception found");
+//            System.out.println("Rest Client Exception found");
+            MatcherAssert.assertThat(e.getStatusCode().value(), Matchers.equalTo(404));
         }
     }
 }
