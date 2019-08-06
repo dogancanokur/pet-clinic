@@ -13,7 +13,7 @@ public class Owner implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "petClinicSeqGen")
-    @SequenceGenerator(name = "petClinicSeqGen", sequenceName = "petClinic_sequence")
+    @SequenceGenerator(name = "petClinicSeqGen", sequenceName = "petclinic_sequence")
     private Long id;
 
     @Column(name = "first_name")
